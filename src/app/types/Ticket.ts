@@ -1,5 +1,4 @@
 export interface Ticket {
-    id: number;
     price: number;
     origin: string;
     origin_name: string;

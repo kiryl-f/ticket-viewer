@@ -20,7 +20,6 @@ const Filter: React.FC<Props> = ({ onFilterChange }) => {
     <div className={styles.filterContainer}>
       <h3>Filter Options</h3>
       
-      {/* Stops Filter */}
       <div className={styles.filterGroup}>
         <label>Filter by stops:</label>
         <select onChange={e => onFilterChange(e.target.value ? Number(e.target.value) : null)}>
@@ -31,9 +30,8 @@ const Filter: React.FC<Props> = ({ onFilterChange }) => {
         </select>
       </div>
 
-      {/* Price Filter */}
       <div className={styles.filterGroup}>
-        <label>Price Range: ${priceRange[0]} - ${priceRange[1]}</label>
+        <label>Price Range: {priceRange[0]} - {priceRange[1]}</label>
         <div className={styles.rangeSlider}>
           <input
             type="range"

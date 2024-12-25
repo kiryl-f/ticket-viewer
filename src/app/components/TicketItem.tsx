@@ -35,7 +35,7 @@ const TicketItem: React.FC<Props> = ({ ticket }) => (
     </div>
 
     <div className={styles.ticketFooter}>
-      <div className={styles.price}>${ticket.price}</div>
+      <div className={styles.price}>{ticket.price}</div>
       <div className={styles.stops}>{ticket.stops} Stops</div>
       <button className={styles.bookBtn}>Book Now</button>
     </div>

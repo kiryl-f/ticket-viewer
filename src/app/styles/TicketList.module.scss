@@ -56,3 +56,30 @@
     gap: 16px;
   }
   
+  .currencySelector {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  
+  .currencyButton {
+    padding: 8px 12px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 14px;
+  }
+  
+  .currencyButton:hover {
+    background-color: #0078d4;
+    color: white;
+  }
+  
+  .currencyButton.active {
+    background-color: #0078d4;
+    color: white;
+    border: 1px solid #005bb5;
+  }
+  
