@@ -5,6 +5,7 @@ import TicketItem from './TicketItem';
 import ticketsData from '../data/tickets.json';
 import { Ticket } from '../types/Ticket';
 import Filter from './Filter';
+import styles from "../styles/TicketList.module.scss";
 
 const TicketList: React.FC = () => {
   const [tickets, setTickets] = useState<Ticket[]>([]);
@@ -26,13 +27,23 @@ const TicketList: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>Available Tickets</h1>
-      <Filter onFilterChange={handleFilterChange} />
-      <div>
-        {filteredTickets.map(ticket => (
-          <TicketItem key={Math.random()} ticket={ticket} />
-        ))}
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <div className={styles.currencySelector}>
+          <button className={styles.currencyButton}>RUB</button>
+          <button className={`${styles.currencyButton} ${styles.active}`}>USD</button>
+          <button className={styles.currencyButton}>EUR</button>
+        </div>
+      </header>
+      <div className={styles.content}>
+        <aside className={styles.sidebar}>
+          <Filter onFilterChange={handleFilterChange} />
+        </aside>
+        <main className={styles.ticketList}>
+          {filteredTickets.map(ticket => (
+            <TicketItem key={Math.random()} ticket={ticket} />
+          ))}
+        </main>
       </div>
     </div>
   );

@@ -1,0 +1,91 @@
+.ticket {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ticketHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: #f6f6f6;
+
+  .ticketTitle {
+    font-size: 18px;
+    font-weight: bold;
+    color: #003580;
+  }
+
+  .ticketStatus {
+    font-size: 12px;
+    color: #28a745;
+    font-weight: bold;
+  }
+}
+
+.ticketDetails {
+  padding: 16px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+
+  .detail {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+
+    .label {
+      font-size: 14px;
+      color: #666;
+      font-weight: 500;
+    }
+
+    .value {
+      font-size: 14px;
+      color: #000;
+      font-weight: bold;
+    }
+  }
+}
+
+.ticketFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+
+  .price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #003580;
+  }
+
+  .stops {
+    font-size: 14px;
+    color: #666;
+    margin-right: auto;
+    margin-left: 16px;
+  }
+
+  .bookBtn {
+    background-color: #ff6c00;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #e55a00;
+    }
+  }
+}

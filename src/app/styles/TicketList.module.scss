@@ -1,0 +1,58 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 16px;
+  
+    .currencySelector {
+      display: flex;
+      gap: 8px;
+  
+      .currencyButton {
+        background: #fff;
+        border: 1px solid #ddd;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+  
+        &.active {
+          background: #003580;
+          color: #fff;
+        }
+  
+        &:hover {
+          background-color: #e7e7e7;
+        }
+      }
+    }
+  }
+  
+  .content {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .sidebar {
+    width: 220px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .ticketList {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
