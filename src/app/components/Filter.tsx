@@ -4,49 +4,89 @@ import React, { useState } from 'react';
 import styles from "../styles/Filter.module.scss";
 
 interface Props {
-  onFilterChange: (stops: number | null) => void;
+  onFilterChange: (stops: number[]) => void;
+  onPriceChange: (priceRange: [number, number]) => void;
 }
 
-const Filter: React.FC<Props> = ({ onFilterChange }) => {
-  const [priceRange, setPriceRange] = useState<[number, number]>([50, 1000]);
+const Filter: React.FC<Props> = ({ onFilterChange, onPriceChange }) => {
+  const [selectedStops, setSelectedStops] = useState<number[]>([]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 100000]); 
 
-  const handlePriceChange = (value: number, index: number) => {
-    const updatedRange = [...priceRange] as [number, number];
-    updatedRange[index] = value;
-    setPriceRange(updatedRange);
+  const toggleStop = (stop: number) => {
+    const updatedStops = selectedStops.includes(stop)
+      ? selectedStops.filter(s => s !== stop)
+      : [...selectedStops, stop];
+
+    setSelectedStops(updatedStops);
+    onFilterChange(updatedStops);
+  };
+
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    const newRange = [...priceRange] as [number, number];
+    newRange[index] = Number(e.target.value);
+    setPriceRange(newRange);
+    onPriceChange(newRange);
   };
 
   return (
-    <div className={styles.filterContainer}>
-      <h3>Filter Options</h3>
-      
+    <div className={styles.filter}>
+      <h3>Фильтр</h3>
+
       <div className={styles.filterGroup}>
-        <label>Filter by stops:</label>
-        <select onChange={e => onFilterChange(e.target.value ? Number(e.target.value) : null)}>
-          <option value="">All</option>
-          <option value="0">Non-stop</option>
-          <option value="1">1 Stop</option>
-          <option value="2">2 Stops</option>
-        </select>
+        <h4>Количество пересадок</h4>
+        <label>
+          <input
+            type="checkbox"
+            checked={selectedStops.includes(0)}
+            onChange={() => toggleStop(0)}
+          />
+          Без пересадок
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={selectedStops.includes(1)}
+            onChange={() => toggleStop(1)}
+          />
+          1 пересадка
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={selectedStops.includes(2)}
+            onChange={() => toggleStop(2)}
+          />
+          2 пересадки
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={selectedStops.includes(3)}
+            onChange={() => toggleStop(3)}
+          />
+          3 пересадки
+        </label>
       </div>
 
       <div className={styles.filterGroup}>
-        <label>Price Range: {priceRange[0]} - {priceRange[1]}</label>
-        <div className={styles.rangeSlider}>
-          <input
-            type="range"
-            min="50"
-            max="1000"
-            value={priceRange[0]}
-            onChange={e => handlePriceChange(Number(e.target.value), 0)}
-          />
-          <input
-            type="range"
-            min="50"
-            max="1000"
-            value={priceRange[1]}
-            onChange={e => handlePriceChange(Number(e.target.value), 1)}
-          />
+        <h4>Цена</h4>
+        <div className={styles.priceFilter}>
+          <label>
+            От:
+            <input
+              type="number"
+              value={priceRange[0]}
+              onChange={e => handlePriceChange(e, 0)}
+            />
+          </label>
+          <label>
+            До:
+            <input
+              type="number"
+              value={priceRange[1]}
+              onChange={e => handlePriceChange(e, 1)}
+            />
+          </label>
         </div>
       </div>
     </div>

@@ -17,8 +17,10 @@ const currencyRates = {
 const TicketList: React.FC = () => {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [filteredTickets, setFilteredTickets] = useState<Ticket[]>([]);
-  const [filter, setFilter] = useState<number | null>(null);
+  const [selectedStops, setSelectedStops] = useState<number[]>([]);
   const [currency, setCurrency] = useState<"RUB" | "USD" | "EUR">("USD");
+
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 100000]);
 
   useEffect(() => {
     const sortedTickets = [...ticketsData.tickets].sort((a, b) => a.price - b.price);
@@ -26,11 +28,28 @@ const TicketList: React.FC = () => {
     setFilteredTickets(sortedTickets);
   }, []);
 
-  const handleFilterChange = (stops: number | null) => {
-    setFilter(stops);
+  const handleFilterChange = (stops: number[]) => {
+    setSelectedStops(stops);
     setFilteredTickets(
-      stops !== null ? tickets.filter(ticket => ticket.stops === stops) : tickets
+      stops.length === 0
+        ? tickets
+        : tickets.filter(ticket => stops.includes(ticket.stops))
     );
+  };
+
+  const handlePriceChange = (newPriceRange: [number, number]) => {
+    setPriceRange(newPriceRange);
+    applyFilters(selectedStops, newPriceRange);
+  };
+
+  const applyFilters = (stops: number[], price: [number, number]) => {
+    const [minPrice, maxPrice] = price;
+    const filtered = tickets.filter(ticket => {
+      const inStops = stops.length === 0 || stops.includes(ticket.stops);
+      const inPriceRange = ticket.price >= minPrice && ticket.price <= maxPrice;
+      return inStops && inPriceRange;
+    });
+    setFilteredTickets(filtered);
   };
 
   const handleCurrencyChange = (newCurrency: "RUB" | "USD" | "EUR") => {
@@ -43,16 +62,19 @@ const TicketList: React.FC = () => {
 
   return (
     <div className={styles.container}>
-       <Header currency={currency} onCurrencyChange={handleCurrencyChange} />
-     
+      <Header currency={currency} onCurrencyChange={handleCurrencyChange} />
+
       <div className={styles.content}>
         <aside className={styles.sidebar}>
-          <Filter onFilterChange={handleFilterChange} />
+          <Filter
+            onFilterChange={handleFilterChange}
+            onPriceChange={handlePriceChange}
+          />
         </aside>
         <main className={styles.ticketList}>
           {filteredTickets.map(ticket => (
             <TicketItem
-              key={Math.random()}
+              key={"" + ticket.price + ticket.departure_date + ticket.destination} 
               ticket={{
                 ...ticket,
                 price: Number(convertPrice(ticket.price)),

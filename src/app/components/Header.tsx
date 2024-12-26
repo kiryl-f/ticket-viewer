@@ -17,13 +17,13 @@ const Header: React.FC<Props> = ({ currency, onCurrencyChange }) => {
       </div>
       <nav className={styles.nav}>
         <a href="#" className={styles.navLink}>
-          Home
+          Домой
         </a>
         <a href="#" className={styles.navLink}>
-          About
+          О нас
         </a>
         <a href="#" className={styles.navLink}>
-          Contact
+          Контакты
         </a>
       </nav>
       <div className={styles.currencySelector}>
